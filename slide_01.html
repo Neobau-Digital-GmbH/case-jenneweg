@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slide 01 &ndash; Die Ausgangslage</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;0,900;1,700;1,900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin:0;padding:0;box-sizing:border-box; }
+  html, body { width:100vw;height:100vh;overflow:hidden;font-family:'Roboto',sans-serif;background:#2c313c;color:#fff; }
+  .slide-wrap { position:fixed;inset:0;background:#2c313c;overflow:hidden;z-index:0; }
+  .bg { position:absolute;inset:0;pointer-events:none; }
+  .bg::before { content:'';position:absolute;inset:0;
+    background:radial-gradient(ellipse 80vw 70vh at 80% -15%,rgba(91,143,241,0.12) 0%,transparent 55%),
+               radial-gradient(ellipse 50vw 50vh at -10% 95%,rgba(91,143,241,0.08) 0%,transparent 60%); }
+  .bg::after { content:'';position:absolute;inset:0;
+    background-image:radial-gradient(rgba(255,255,255,0.06) 1px,transparent 1px);
+    background-size:40px 40px; }
+  .slide { position:relative;width:100%;height:100%;display:flex;flex-direction:column;z-index:1; }
+
+  /* HEADER */
+  .header { display:flex;align-items:center;justify-content:space-between;padding:3vh 4.5vw 0;flex-shrink:0; }
+  .brand { font-size:clamp(14px,1.1vw,18px);font-weight:700;letter-spacing:0.07em; }
+  .brand span { color:#5b8ff1; }
+  .slide-num { font-size:clamp(12px,0.95vw,16px);letter-spacing:0.14em;color:rgba(255,255,255,0.55);text-transform:uppercase;font-weight:700; }
+
+  /* SLIDE TITLE */
+  .slide-title { flex-shrink:0;padding:4vh 4.5vw 1.5vh; }
+  .eyebrow { display:flex;align-items:center;gap:1vw;font-size:clamp(12px,1vw,16px);font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#5b8ff1;margin-bottom:1.8vh; }
+  .eyebrow::before,.eyebrow::after { content:'';height:1px;width:2.5vw;background:rgba(91,143,241,0.5);flex-shrink:0; }
+  .headline { font-size:clamp(26px,3vw,50px);font-weight:900;line-height:1.05; }
+  .headline .hl { font-style:italic;background:linear-gradient(135deg,#5b8ff1 0%,#7aaaf5 50%,#3d5a9e 100%);-webkit-background-clip:text;background-clip:text;color:transparent; }
+
+  /* BODY */
+  .body { flex:1;display:flex;gap:2.5vw;padding:0 4.5vw 1.5vh;min-height:0;align-items:center; }
+
+  /* LEFT — before points */
+  .left { flex:1;display:flex;flex-direction:column;gap:1vh;justify-content:flex-start; }
+
+  .before-label { font-size:clamp(9px,0.72vw,11px);font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,100,80,0.7);margin-bottom:0.2vh; }
+
+  .before-item { display:flex;align-items:flex-start;gap:1.2vw;border-radius:11px;padding:clamp(10px,1.1vh,16px) clamp(12px,1.2vw,18px);background:rgba(255,100,80,0.05);border:1px solid rgba(255,100,80,0.15); }
+  .before-dot { width:6px;height:6px;border-radius:50%;background:#ff6b6b;flex-shrink:0;margin-top:clamp(5px,0.6vh,8px); }
+  .before-text { font-size:clamp(12px,0.95vw,16px);color:rgba(255,255,255,0.82);line-height:1.45; }
+  .before-text strong { color:#ff8f8f;font-weight:700; }
+
+  /* RIGHT — cost of inaction */
+  .right { width:36vw;flex-shrink:0;display:flex;flex-direction:column;gap:1.4vh;justify-content:flex-start; }
+
+  .recognition-box { border-radius:13px;padding:clamp(14px,1.6vh,22px) clamp(16px,1.5vw,24px);background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08); }
+  .rec-eyebrow { font-size:clamp(9px,0.72vw,11px);font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:0.8vh; }
+  .rec-text { font-size:clamp(13px,1.05vw,17px);font-weight:700;color:#ffffff;line-height:1.5; }
+  .rec-text em { font-style:italic;color:#5b8ff1; }
+
+  .coi-box { border-radius:13px;padding:clamp(14px,1.6vh,22px) clamp(16px,1.5vw,24px);background:rgba(255,100,80,0.06);border:1px solid rgba(255,100,80,0.18); }
+  .coi-label { font-size:clamp(9px,0.72vw,11px);font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,100,80,0.7);margin-bottom:1.2vh; }
+  .coi-calc { display:flex;flex-direction:column;gap:0.8vh;margin-bottom:1.4vh; }
+  .coi-row { display:flex;align-items:baseline;justify-content:space-between;gap:1vw; }
+  .coi-row-label { font-size:clamp(11px,0.9vw,14px);color:rgba(255,255,255,0.6); }
+  .coi-row-val { font-size:clamp(13px,1.05vw,17px);font-weight:700;color:rgba(255,255,255,0.85);white-space:nowrap; }
+  .coi-divider { height:1px;background:rgba(255,100,80,0.2); }
+  .coi-total { display:flex;align-items:baseline;justify-content:space-between;gap:1vw;margin-top:0.4vh; }
+  .coi-total-label { font-size:clamp(12px,0.95vw,15px);font-weight:700;color:rgba(255,255,255,0.85); }
+  .coi-total-val { font-size:clamp(22px,2.4vw,38px);font-weight:900;color:#ff8f8f;white-space:nowrap; }
+  .coi-footnote { font-size:clamp(10px,0.8vw,13px);color:rgba(255,255,255,0.38);line-height:1.5;margin-top:0.8vh; }
+
+  /* FOOTER */
+  .footer { padding:0 4.5vw 2.5vh;display:flex;align-items:center;justify-content:space-between;position:relative;flex-shrink:0; }
+  .footer::before { content:'';position:absolute;top:0;left:4.5vw;right:4.5vw;height:1px;background:rgba(255,255,255,0.15); }
+  .footer-text { font-size:clamp(12px,0.95vw,16px);font-weight:500;color:rgba(255,255,255,0.75);letter-spacing:0.08em;padding-top:1.5vh; }
+</style>
+</head>
+<body>
+<div class="slide-wrap">
+  <div class="bg"></div>
+  <div class="slide">
+
+    <div class="header">
+      <div class="brand">neubau<span>.</span>marketing</div>
+      <div class="slide-num">01 / 04</div>
+    </div>
+
+    <div class="slide-title">
+      <div class="eyebrow">Die Ausgangslage</div>
+      <div class="headline">Was vor der Zusammenarbeit <span class="hl">nicht funktioniert hat.</span></div>
+    </div>
+
+    <div class="body">
+
+      <!-- LEFT -->
+      <div class="left">
+        <div class="before-label">Bank 1 Saar &mdash; vor dem 13.11.2025</div>
+
+        <div class="before-item">
+          <div class="before-dot"></div>
+          <div class="before-text">&Oslash; <strong>2&ndash;3 Anfragen pro Monat</strong> &uuml;ber Portale &mdash; kaum qualifizierte Kaufinteressenten</div>
+        </div>
+        <div class="before-item">
+          <div class="before-dot"></div>
+          <div class="before-text"><strong>0 verkaufte Einheiten</strong> &mdash; das Projekt drohte zu stagnieren</div>
+        </div>
+        <div class="before-item">
+          <div class="before-dot"></div>
+          <div class="before-text">Die <strong>Vorverkaufsquote der Hausbank</strong> war nicht erreichbar &mdash; Finanzierung gef&auml;hrdet</div>
+        </div>
+        <div class="before-item">
+          <div class="before-dot"></div>
+          <div class="before-text"><strong>Kein Nachfassprozess</strong> &mdash; Anfragen versandeten, bevor ein Gespr&auml;ch stattfand</div>
+        </div>
+        <div class="before-item">
+          <div class="before-dot"></div>
+          <div class="before-text"><strong>Hohe Portalkosten</strong> ohne messbaren R&uuml;cklauf &mdash; kein Überblick, was wirklich funktioniert</div>
+        </div>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="right">
+
+        <div class="recognition-box">
+          <div class="rec-eyebrow">Klingt das bekannt?</div>
+          <div class="rec-text">Die meisten Bautr&auml;ger-GFs die wir kennen, k&auml;mpfen nicht mit fehlendem Budget &mdash; sie k&auml;mpfen damit, dass <em>niemand den Vertrieb wirklich strukturiert hat.</em></div>
+        </div>
+
+        <div class="coi-box">
+          <div class="coi-label">Der unsichtbare Preis des Abwartens</div>
+          <div class="coi-calc">
+            <div class="coi-row">
+              <div class="coi-row-label">Zinslast pro offener Einheit / Monat</div>
+              <div class="coi-row-val">~2.500&nbsp;&euro;</div>
+            </div>
+            <div class="coi-row">
+              <div class="coi-row-label">Entgangener Verkaufserl&ouml;s / Monat</div>
+              <div class="coi-row-val">~2.000&nbsp;&euro;</div>
+            </div>
+            <div class="coi-divider"></div>
+            <div class="coi-total">
+              <div class="coi-total-label">Kosten des Abwartens pro Einheit</div>
+              <div class="coi-total-val">~4.500&nbsp;&euro; / Mo.</div>
+            </div>
+          </div>
+          <div class="coi-footnote">Bei Bank 1 Saar standen mehrere Einheiten offen. Jeder Monat ohne strukturierten Vertriebsprozess war ein Monat mit sechsstelligem Liquidit&auml;tsabfluss &mdash; vollkommen unabh&auml;ngig davon, ob Portale gebucht wurden oder nicht.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-text">Neobau Digital GmbH &middot; neubau.marketing</div>
+      <div class="footer-text">Vertraulich &middot; Case Study Jenneweg 2026</div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
