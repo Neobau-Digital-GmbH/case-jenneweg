@@ -33,13 +33,13 @@
   .headline .hl { font-style:italic;background:linear-gradient(135deg,#5b8ff1 0%,#7aaaf5 50%,#3d5a9e 100%);-webkit-background-clip:text;background-clip:text;color:transparent; }
 
   /* BODY */
-  .body { flex:1;display:flex;flex-direction:column;gap:1.4vh;padding:0 4.5vw 1.5vh;min-height:0; }
+  .body { flex:1;display:flex;flex-direction:column;gap:1.4vh;padding:0 4.5vw 1.5vh;min-height:0;justify-content:center; }
 
   /* TOP ROW: Chart + Numbers */
-  .top-row { flex:1;display:flex;gap:2vw;min-height:0; }
+  .top-row { display:flex;gap:2vw;flex-shrink:0; }
 
   /* CHART */
-  .chart-card { flex:1;border-radius:14px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);padding:clamp(10px,1.2vh,16px) clamp(14px,1.4vw,20px);display:flex;flex-direction:column;min-height:0; }
+  .chart-card { flex:1;height:clamp(200px,38vh,300px);border-radius:14px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);padding:clamp(10px,1.2vh,16px) clamp(14px,1.4vw,20px);display:flex;flex-direction:column; }
   .chart-lbl { font-size:clamp(9px,0.72vw,11px);font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:0.8vh;flex-shrink:0; }
   .chart-inner { flex:1;position:relative;min-height:0; }
   #myChart { position:absolute;inset:0;width:100%!important;height:100%!important; }
