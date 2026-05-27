@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slide 00 &ndash; Case Jenneweg</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;0,900;1,700;1,900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin:0;padding:0;box-sizing:border-box; }
+  html, body { width:100vw;height:100vh;overflow:hidden;font-family:'Roboto',sans-serif;background:#2c313c;color:#fff; }
+  .slide-wrap { position:fixed;inset:0;background:#2c313c;overflow:hidden;z-index:0; }
+
+  /* BG */
+  .bg { position:absolute;inset:0;pointer-events:none; }
+  .bg::before { content:'';position:absolute;inset:0;
+    background:radial-gradient(ellipse 80vw 70vh at 80% -15%,rgba(91,143,241,0.12) 0%,transparent 55%),
+               radial-gradient(ellipse 50vw 50vh at -10% 95%,rgba(91,143,241,0.08) 0%,transparent 60%); }
+  .bg::after { content:'';position:absolute;inset:0;
+    background-image:radial-gradient(rgba(255,255,255,0.06) 1px,transparent 1px);
+    background-size:40px 40px; }
+
+  .slide { position:relative;width:100%;height:100%;display:flex;flex-direction:column;z-index:1; }
+
+  /* HEADER */
+  .header { display:flex;align-items:center;justify-content:space-between;padding:3vh 4.5vw 0;flex-shrink:0; }
+  .brand { font-size:clamp(14px,1.1vw,18px);font-weight:700;letter-spacing:0.07em; }
+  .brand span { color:#5b8ff1; }
+  .slide-num { font-size:clamp(12px,0.95vw,16px);letter-spacing:0.14em;color:rgba(255,255,255,0.55);text-transform:uppercase;font-weight:700; }
+
+  /* SLIDE TITLE */
+  .slide-title { flex-shrink:0;padding:4vh 4.5vw 1.5vh;display:flex;align-items:flex-end;justify-content:space-between; }
+  .title-left { flex:1; }
+  .eyebrow { display:flex;align-items:center;gap:1vw;font-size:clamp(12px,1vw,16px);font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#5b8ff1;margin-bottom:1.8vh; }
+  .eyebrow::before,.eyebrow::after { content:'';height:1px;width:2.5vw;background:rgba(91,143,241,0.5);flex-shrink:0; }
+  .headline { font-size:clamp(26px,3vw,50px);font-weight:900;line-height:1.05; }
+  .headline .hl { font-style:italic;background:linear-gradient(135deg,#5b8ff1 0%,#7aaaf5 50%,#3d5a9e 100%);-webkit-background-clip:text;background-clip:text;color:transparent; }
+  .logo-wrap img { height:clamp(38px,4.5vh,64px);width:auto;display:block; }
+
+  /* BODY */
+  .body { flex:1;display:flex;gap:2vw;padding:0 4.5vw 1.5vh;min-height:0;align-items:flex-start; }
+
+  /* LEFT */
+  .left { width:28vw;flex-shrink:0;display:flex;flex-direction:column;gap:1.4vh;padding-top:0.5vh; }
+
+  .stats { display:flex;gap:0.8vw; }
+  .stat { flex:1;border-radius:10px;padding:clamp(8px,0.9vh,13px) clamp(8px,0.8vw,12px);display:flex;flex-direction:column;gap:0.2vh; }
+  .stat.blue { background:rgba(91,143,241,0.08);border:1px solid rgba(91,143,241,0.22); }
+  .stat.green { background:rgba(52,199,89,0.08);border:1px solid rgba(52,199,89,0.22); }
+  .stat-lbl { font-size:clamp(7px,0.62vw,10px);font-weight:700;letter-spacing:0.1em;text-transform:uppercase; }
+  .stat.blue .stat-lbl { color:#5b8ff1; }
+  .stat.green .stat-lbl { color:#34c759; }
+  .stat-val { font-size:clamp(18px,2.2vw,34px);font-weight:900;line-height:1; }
+  .stat.blue .stat-val { background:linear-gradient(135deg,#5b8ff1,#7aaaf5);-webkit-background-clip:text;background-clip:text;color:transparent; }
+  .stat.green .stat-val { color:#34c759; }
+  .stat-sub { font-size:clamp(7px,0.62vw,10px);color:rgba(255,255,255,0.4); }
+
+  .sub { font-size:clamp(11px,0.88vw,14px);color:rgba(255,255,255,0.52);line-height:1.65; }
+
+  .mini-quote { border-radius:10px;padding:clamp(9px,1vh,14px) clamp(10px,1vw,15px);background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07); }
+  .mq-text { font-size:clamp(10px,0.82vw,13px);color:rgba(255,255,255,0.68);line-height:1.55;font-style:italic;margin-bottom:0.8vh; }
+  .mq-person { display:flex;align-items:center;gap:0.7vw; }
+  .mq-avatar { width:clamp(26px,3vh,38px);height:clamp(26px,3vh,38px);border-radius:50%;overflow:hidden;border:1.5px solid rgba(91,143,241,0.35);flex-shrink:0; }
+  .mq-avatar img { width:100%;height:100%;object-fit:cover; }
+  .mq-name { font-size:clamp(10px,0.8vw,12px);font-weight:700;color:#5b8ff1; }
+
+  /* RIGHT */
+  .right { flex:1;display:flex;flex-direction:column;gap:1.2vh; }
+
+  /* CHAPTERS */
+  .chapters { display:flex;gap:0.8vw;flex-shrink:0; }
+  .chapter { flex:1;display:flex;align-items:center;gap:0.6vw;border-radius:9px;padding:clamp(8px,0.9vh,13px) clamp(10px,1vw,15px);background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);cursor:pointer;transition:background 0.16s,border-color 0.16s;position:relative;overflow:hidden; }
+  .chapter::before { content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(91,143,241,0.2),transparent);opacity:0;transition:opacity 0.16s; }
+  .chapter:hover { background:rgba(91,143,241,0.07);border-color:rgba(91,143,241,0.22); }
+  .chapter:hover::before { opacity:1; }
+  .chapter:hover .ch-arrow { color:#5b8ff1; }
+  .ch-num { font-size:clamp(9px,0.7vw,11px);font-weight:900;color:rgba(91,143,241,0.4);flex-shrink:0; }
+  .ch-title { flex:1;font-size:clamp(10px,0.82vw,13px);font-weight:700;color:rgba(255,255,255,0.82);line-height:1.3; }
+  .ch-arrow { font-size:clamp(10px,0.8vw,12px);color:rgba(91,143,241,0.35);flex-shrink:0;transition:color 0.16s; }
+
+  /* FOOTER */
+  .footer { padding:0 4.5vw 2.5vh;display:flex;align-items:center;justify-content:space-between;position:relative;flex-shrink:0; }
+  .footer::before { content:'';position:absolute;top:0;left:4.5vw;right:4.5vw;height:1px;background:rgba(255,255,255,0.15); }
+  .footer-text { font-size:clamp(12px,0.95vw,16px);font-weight:500;color:rgba(255,255,255,0.75);letter-spacing:0.08em;padding-top:1.5vh; }
+  .cta-btn { display:inline-flex;align-items:center;gap:0.6vw;padding:clamp(6px,0.8vh,10px) clamp(14px,1.3vw,20px);border-radius:7px;background:#5b8ff1;color:#fff;font-family:'Roboto',sans-serif;font-size:clamp(11px,0.88vw,14px);font-weight:700;text-decoration:none;margin-top:1.5vh;transition:background 0.18s; }
+  .cta-btn:hover { background:#4a7fe0; }
+  .cta-btn svg { width:12px;height:12px; }
+</style>
+</head>
+<body>
+<div class="slide-wrap">
+  <div class="bg"></div>
+  <div class="slide">
+
+    <!-- HEADER -->
+    <div class="header">
+      <div class="brand">neubau<span>.</span>marketing</div>
+      <div class="slide-num">00 / 04</div>
+    </div>
+
+    <!-- SLIDE TITLE -->
+    <div class="slide-title">
+      <div class="title-left">
+        <div class="eyebrow">Bank 1 Saar Immobilien GmbH</div>
+        <div class="headline">7 Beurkundungen &mdash; <span class="hl">VVQ erreicht.</span></div>
+      </div>
+      <div class="logo-wrap">
+        <img src="https://ik.imagekit.io/ViewRStudio/Neobau%20Digital%20GmbH/Grafik/Kundenlogos/Kunde%20-%20Bank1Saar.png" alt="Bank 1 Saar">
+      </div>
+    </div>
+
+    <!-- BODY -->
+    <div class="body">
+
+      <!-- LEFT -->
+      <div class="left">
+        <div class="stats">
+          <div class="stat blue">
+            <div class="stat-lbl">Anfragen</div>
+            <div class="stat-val">301</div>
+            <div class="stat-sub">in 5 Monaten</div>
+          </div>
+          <div class="stat blue">
+            <div class="stat-lbl">Invest / Anfrage</div>
+            <div class="stat-val">17,30&nbsp;&euro;</div>
+            <div class="stat-sub">vs. ~600&nbsp;&euro; Portal</div>
+          </div>
+          <div class="stat green">
+            <div class="stat-lbl">Beurkundungen</div>
+            <div class="stat-val">7</div>
+            <div class="stat-sub">~1,9 Mio&nbsp;&euro;</div>
+          </div>
+        </div>
+
+        <div class="sub">Wie die Bank 1 Saar mit einem strukturierten Vertriebssystem die Vorverkaufsquote der Hausbank sicherte &mdash; und warum Sven Pfeifer das n&auml;chste Projekt wieder mit neubau.marketing vermarktet.</div>
+
+        <div class="mini-quote">
+          <div class="mq-text">&bdquo;Vor ein paar Monaten h&auml;tte ich mir niemals gedacht, dass wir die 30&nbsp;% Vorverkaufsquote erreichen. Mit den Anfragen von euch kann das Projekt nun realisiert werden.&ldquo;</div>
+          <div class="mq-person">
+            <div class="mq-avatar"><img src="https://ik.imagekit.io/ViewRStudio/Neobau%20Digital%20GmbH/Grafik/Kundenlogos/Ansprechpartner/Sven%20Pfeifer.png" alt="Sven Pfeifer"></div>
+            <div class="mq-name">Sven Pfeifer &mdash; Geschäftsführer Bank 1 Saar Immobilien</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="right">
+
+        <!-- PROJECT IMAGE -->
+        <div style="width:100%;aspect-ratio:16/9;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);flex-shrink:0;">
+          <img src="https://ik.imagekit.io/ViewRStudio/Bank1Saar/Mailvorlagen/Hero-Bilder/Jenneweg_updated_outside_01.png"
+            alt="Jenneweg &ndash; Bank 1 Saar"
+            style="width:100%;height:100%;object-fit:cover;display:block;">
+        </div>
+
+        <!-- CHAPTER CARDS -->
+        <div class="chapters">
+          <div class="chapter" onclick="nav(1)">
+            <div class="ch-num">01</div>
+            <div class="ch-title">Die Ausgangslage</div>
+            <div class="ch-arrow">&#8594;</div>
+          </div>
+          <div class="chapter" onclick="nav(2)">
+            <div class="ch-num">02</div>
+            <div class="ch-title">Das System</div>
+            <div class="ch-arrow">&#8594;</div>
+          </div>
+          <div class="chapter" onclick="nav(3)">
+            <div class="ch-num">03</div>
+            <div class="ch-title">Die Ergebnisse</div>
+            <div class="ch-arrow">&#8594;</div>
+          </div>
+          <div class="chapter" onclick="nav(4)">
+            <div class="ch-num">04</div>
+            <div class="ch-title">Was das bedeutet</div>
+            <div class="ch-arrow">&#8594;</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      <div class="footer-text">Neobau Digital GmbH &middot; neubau.marketing</div>
+      <a class="cta-btn" href="https://meeting.viewr.studio/#/MeetingMitOlli" target="_blank">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Termin mit Olli
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function nav(index) {
+    if (window.parent && window.parent.goTo) window.parent.goTo(index);
+  }
+</script>
+</body>
+</html>
